@@ -1,11 +1,5 @@
-## dart版express http_server服务框架。
-- 灵感来源express,koa2,laravel
-- 入口文件 main.dart
-- 2019-09-05 添加路由中间件支持，支持全局中间件和单独路由中间件
-```dart
-import 'core/app.dart';
-import 'core/router.dart';
-import 'routes/routeList.dart';
+## dart版jaguar http_server服务框架。
+
 
 void main() {
   ///初始化路由

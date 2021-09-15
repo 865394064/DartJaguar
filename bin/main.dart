@@ -11,9 +11,26 @@ import 'Utils/HttpUtils/RhymeErrorWrite.dart';
 //   ..serve(logRequests: true);
 
 main()=>new Jaguar(errorWriter: new RhymeErrorWrite())
-  ..get('/api/doGet', (ctx) =>'Hello')
+  // ..get('/api/doGet/:id', (ctx){
+  //   String id=ctx.pathParams['id'];
+  //   ctx.response=Response('path Id:$id');
+  // })
+  ..get('/api/doGet/', (ctx) {
+
+    //这样子可以通过http://localhost:8080/api/doGet?id=322 来获取到参数 //可以添加默认值
+      String id=ctx.query.get('id');
+      ctx.response = Response('query Id:$id');
+    })
   ..getJson('/api/doGetJson', (ctx)=>'{"id":3221}')
-  ..post('/api/doPost', (ctx) =>ctx.bodyAsJson())
+
+  //post 处理
+  // ..post('/api/doPost', (ctx) =>ctx.bodyAsJson())
+  ..post('/api/User/login', (ctx) async{
+    Map<String,String> params=await ctx.bodyAsUrlEncodedForm();
+    String userName=params['username'];
+    String passWord=params['password'];
+    ctx.response=Response('UserName:$userName\nPassWord:$passWord');
+  })
   ..postJson('/api/doPostJson', (ctx)=>'{"id":4234}')
   ..delete('/api/doDelete', (ctx)=>'delete')
   ..deleteJson('/api/doDelete', (ctx) =>'{"id":253}')
